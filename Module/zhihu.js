@@ -2,6 +2,7 @@ let body = $response.body;
 
 if (body) {
     try {
+        $notification.post("开始过滤广告")
         let json = JSON.parse(body);
 
         if (json.data && Array.isArray(json.data)) {
@@ -13,7 +14,9 @@ if (body) {
             let removed = before - after;
 
             // ★ 日志输出
-            console.log(`知乎脚本: 去除广告 ${removed} 条，剩余 ${after} 条`);
+            if (removed > 0) {
+                $notification.post("知乎去广告", "", `已过滤 ${removed} 条广告`);
+            }
         }
 
         body = JSON.stringify(json);
