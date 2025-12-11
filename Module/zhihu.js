@@ -14,9 +14,7 @@ if (body) {
             let removed = before - after;
 
             // ★ 日志输出
-            if (removed > 0) {
-                $notification.post("知乎去广告", "", `已过滤 ${removed} 条广告`);
-            }
+            $notification.post(`已过滤 ${removed} 条广告`);
         }
 
         body = JSON.stringify(json);
