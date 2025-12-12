@@ -1,5 +1,5 @@
 let body = $response.body;
-
+let debug = false;
 if (body) {
     try {
         let json = JSON.parse(body);
@@ -8,7 +8,7 @@ if (body) {
             json.data = json.data.filter(i => i.type !== "ad");
             let after = json.data.length;
             let removed = before - after;
-            if (removed > 0) {
+            if (debug && removed > 0) {
                 $notification.post("知乎去广告","",`已过滤 ${removed} 条广告`);
             }
         }
