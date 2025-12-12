@@ -1,7 +1,6 @@
 let body = $response.body;
 
 if (body) {
-    $notification.post("知乎去广告","无","开始去广告");
     try {
         let json = JSON.parse(body);
         if (json.data && Array.isArray(json.data)) {
@@ -9,7 +8,9 @@ if (body) {
             json.data = json.data.filter(i => i.type !== "ad");
             let after = json.data.length;
             let removed = before - after;
-            $notification.post("知乎去广告","无",`已过滤 ${removed} 条广告`);
+            if (removed > 0) {
+                $notification.post("知乎去广告","",`已过滤 ${removed} 条广告`);
+            }
         }
         body = JSON.stringify(json);
     } catch (e) {}
